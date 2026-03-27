@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Factura OnstayRd</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f5f2ec;
+  padding: 30px;
+}
+
+.factura {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #c9a64b;
+}
+
+.linea {
+  height: 2px;
+  background: #c9a64b;
+  margin: 20px 0;
+}
+
+.info {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: #f0e9dc;
+}
+
+.total {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.firmas {
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  margin-top: 20px;
+  background: #c9a64b;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="factura">
+
+<h1>FACTURA MENSUAL</h1>
+<div style="text-align:center;">OnstayRd Property Management</div>
+
+<div class="linea"></div>
+
+<div class="info">
+No. Factura: <span id="facturaNum"></span><br>
+No. Contrato: CTR-001<br>
+Fecha: <span id="fecha"></span><br>
+RNC: 000-0000000-0<br>
+Tel: +1 (829) 475-5974<br>
+</div>
+
+<table>
+<tr>
+<th>Propiedad</th>
+<th>Cliente</th>
+<th>Hospedaje</th>
+<th>Limpieza</th>
+<th>Comisión</th>
+<th>Pago dueño</th>
+</tr>
+
+<tbody id="tablaFactura"></tbody>
+
+</table>
+
+<div class="total" id="totales"></div>
+
+<div class="firmas">
+<div>
+_____________________<br>
+Firma Propietario
+</div>
+
+<div>
+_____________________<br>
+OnstayRd
+</div>
+</div>
+
+<button onclick="window.print()">Descargar PDF</button>
+
+</div>
+
+<script>
+let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+
+let tabla = document.getElementById("tablaFactura");
+
+let totalHospedaje = 0;
+let totalComision = 0;
+let totalLimpieza = 0;
+
+reservas.forEach(r => {
+  let fila = document.createElement("tr");
+
+  fila.innerHTML = `
+    <td>${r.propiedad}</td>
+    <td>${r.cliente}</td>
+    <td>$${r.monto}</td>
+    <td>$${r.limpieza}</td>
+    <td>$${r.comision}</td>
+    <td>$${r.pagoDueno}</td>
+  `;
+
+  tabla.appendChild(fila);
+
+  totalHospedaje += r.monto;
+  totalComision += r.comision;
+  totalLimpieza += r.limpieza;
+});
+
+let pagoDueno = totalHospedaje * 0.75;
+
+document.getElementById("totales").innerHTML = `
+Total hospedaje: $${totalHospedaje}<br>
+Comisión: $${totalComision}<br>
+Limpieza: $${totalLimpieza}<br>
+<strong>PAGO PROPIETARIO: $${pagoDueno}</strong>
+`;
+
+let numero = localStorage.getItem("factura") || 1;
+document.getElementById("facturaNum").innerText = "ONR-" + numero.toString().padStart(4,'0');
+
+localStorage.setItem("factura", parseInt(numero)+1);
+
+document.getElementById("fecha").innerText = new Date().toLocaleDateString();
+</script>
+
+</body>
+</html>

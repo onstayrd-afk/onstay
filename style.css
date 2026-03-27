@@ -1,0 +1,93 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #f5f2ec;
+  color: #333;
+}
+
+/* NAVBAR */
+.navbar {
+  background: #ffffff;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-weight: bold;
+  color: #c9a64b;
+  margin-right: 30px;
+}
+
+.navbar a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+/* CONTENIDO */
+.container {
+  padding: 30px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 500;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+}
+
+.card h3 {
+  font-size: 14px;
+  color: #666;
+}
+
+.card p {
+  font-size: 24px;
+  color: #c9a64b;
+}
+
+/* INGRESOS */
+.ingresos {
+  margin-top: 30px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+}
+
+.ingresos h2 {
+  font-size: 24px;
+}
+
+.ingresos .monto {
+  font-size: 40px;
+  color: green;
+  margin: 10px 0;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #888;
+}
